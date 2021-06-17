@@ -9,6 +9,7 @@ const Table = ({
   handleSubmit,
   onUpdate,
   onDelete,
+  id,
 }) => {
   return (
     <div className="flex flex-col">
@@ -75,18 +76,14 @@ const Table = ({
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm font-medium flex flex-row">
-                    <button
-                      className="border-none"
-                      onClick={handleSubmit(onUpdate)}
+                    <div
+                    // onClick={() => onDelete(id)}
                     >
                       <IcPencil />
-                    </button>
-                    <button className="border-none">
-                      <IcTrash
-                        className="ml-2"
-                        onClick={handleSubmit(onDelete)}
-                      />
-                    </button>
+                    </div>
+                    <div onClick={() => onDelete(id)}>
+                      <IcTrash className="ml-2" />
+                    </div>
                   </td>
                 </tr>
               </tbody>

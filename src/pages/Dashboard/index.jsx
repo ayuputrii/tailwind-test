@@ -40,7 +40,7 @@ const Dashboard = () => {
       const res = await axios.post(`${SERVER_API}/create`, {
         ...form,
       });
-      return res.data.data;
+      return res.data;
     } catch {
       throw new Error("Error");
     }
@@ -103,12 +103,11 @@ const Dashboard = () => {
   };
 
   const deleteMutation = useMutation(deleteProduct, {
-    onMutate: async (newData) => {
+    onMutate: async (id) => {
       await queryClient.cancelQueries("getData");
-      const targetId = newData.id;
       const previousData = queryClient.getQueryData("getData");
       if (previousData) {
-        const finalData = previousData.filter((x) => x.id !== targetId);
+        const finalData = previousData.filter((x) => x.id !== id);
         queryClient.setQueryData("getData", finalData);
       }
       return { previousData };
@@ -127,7 +126,6 @@ const Dashboard = () => {
 
   const onDelete = (deleteData) => {
     deleteMutation.mutate(deleteData);
-    console.log("testtttttttt", deleteData);
   };
 
   return (
@@ -178,18 +176,22 @@ const Dashboard = () => {
                             type="text"
                             title="Name"
                             placeholder="input name product"
-                            {...register("name")}
+                            register={register}
+                            name="name"
+                            // {...register("name")}
                           />
                           <TextInput
                             type="number"
                             title="Price"
                             placeholder="input product price"
-                            {...register("price")}
+                            register={register}
+                            name="price"
                           />
                           <TextArea
                             nameTextArea="Description"
                             placeholderTextArea="input product description"
-                            {...register("description")}
+                            register={register}
+                            name="description"
                           />
                         </div>
                       </div>
@@ -220,7 +222,7 @@ const Dashboard = () => {
                         <Table
                           key={item.id}
                           {...item}
-                          handleSubmit={handleSubmit}
+                          // handleSubmit={handleSubmit}
                           onDelete={onDelete}
                         />
                       ))}
