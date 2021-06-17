@@ -3,30 +3,30 @@ import "../../../assets/main.css";
 
 const NavHeader = () => {
   return (
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <div class="flex items-center">
-          <div class="flex-shrink-0">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex items-center justify-between h-16">
+        <div className="flex items-center">
+          <div className="flex-shrink-0">
             <img
-              class="h-8 w-8"
+              className="h-8 w-8"
               src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
               alt="Workflow"
             />
           </div>
-          <div class="hidden md:block">
-            <div class="ml-10 flex items-baseline space-x-4">
-              <div class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-baseline space-x-4">
+              <div className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
                 Dashboard
               </div>
             </div>
           </div>
         </div>
-        <div class="hidden md:block">
-          <div class="ml-4 flex items-center md:ml-6">
-            <button class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-              <span class="sr-only">View notifications</span>
+        <div className="hidden md:block">
+          <div className="ml-4 flex items-center md:ml-6">
+            <button className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+              <span className="sr-only">View notifications</span>
               <svg
-                class="h-6 w-6"
+                className="h-6 w-6"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -41,18 +41,18 @@ const NavHeader = () => {
                 />
               </svg>
             </button>
-            <div class="ml-3 relative">
+            <div className="ml-3 relative">
               <div>
                 <button
                   type="button"
-                  class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                  className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                   id="user-menu-button"
                   aria-expanded="false"
                   aria-haspopup="true"
                 >
-                  <span class="sr-only">Open user menu</span>
+                  <span className="sr-only">Open user menu</span>
                   <img
-                    class="h-8 w-8 rounded-full"
+                    className="h-8 w-8 rounded-full"
                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                     alt=""
                   />
@@ -61,16 +61,16 @@ const NavHeader = () => {
             </div>
           </div>
         </div>
-        <div class="-mr-2 flex md:hidden">
+        <div className="-mr-2 flex md:hidden">
           <button
             type="button"
-            class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+            className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
             aria-controls="mobile-menu"
             aria-expanded="false"
           >
-            <span class="sr-only">Open main menu</span>
+            <span className="sr-only">Open main menu</span>
             <svg
-              class="block h-6 w-6"
+              className="block h-6 w-6"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -85,7 +85,7 @@ const NavHeader = () => {
               />
             </svg>
             <svg
-              class="hidden h-6 w-6"
+              className="hidden h-6 w-6"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"

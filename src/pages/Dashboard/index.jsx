@@ -132,21 +132,21 @@ const Dashboard = () => {
 
   return (
     <div>
-      <nav class="bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <NavHeader />
         </div>
-        <div class="md:hidden" id="mobile-menu">
+        <div className="md:hidden" id="mobile-menu">
           <NavHeaderMobile nameNavMobile="Dashboard" />
         </div>
       </nav>
-      <header class="bg-white shadow">
+      <header className="bg-white shadow">
         <Header nameHeader="Dashboard" />
       </header>
       <main>
-        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          <div class="px-4 py-6 sm:px-0">
-            <div class="border-4 border-dashed border-gray-200 rounded-lg">
+        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div className="px-4 py-6 sm:px-0">
+            <div className="border-4 border-dashed border-gray-200 rounded-lg">
               <div className="p-7">
                 <div className="md:grid md:grid-cols-3 md:gap-6">
                   <div className="md:col-span-1">
