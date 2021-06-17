@@ -76,7 +76,7 @@ const Table = ({
                   </td>
                   <td className="px-6 py-4 text-sm font-medium flex flex-row">
                     <button
-                      className="border-none "
+                      className="border-none"
                       onClick={handleSubmit(onUpdate)}
                     >
                       <IcPencil />
