@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../assets/main.css";
 import {
   Header,
@@ -17,6 +17,11 @@ const SERVER_API = "http://localhost:2000/api/v1/product";
 const Dashboard = () => {
   const queryClient = useQueryClient();
   const { register, handleSubmit, reset, clearErrors } = useForm();
+  const [resultMessage, setResultMessage] = useState({
+    type: "success",
+    text: "",
+    visible: false,
+  });
 
   const { data } = useQuery(
     "getData",
@@ -41,15 +46,15 @@ const Dashboard = () => {
     }
   };
 
-  const mutation = useMutation(createProduct, {
-    onMutate: async (newProducts) => {
+  const addProduct = useMutation(createProduct, {
+    onMutate: async (newData) => {
       await queryClient.cancelQueries("getData");
-      const previousProducts = queryClient.getQueryData("getData");
-      if (previousProducts) {
-        const finalProducts = [...previousProducts, newProducts];
-        queryClient.setQueryData("getData", finalProducts);
+      const previousData = queryClient.getQueryData("getData");
+      if (previousData) {
+        const finalData = [...previousData, newData];
+        queryClient.setQueryData("getData", finalData);
       }
-      return { previousProducts };
+      return { previousData };
     },
     onSettled: async (result, err) => {
       if (result) {
@@ -65,12 +70,64 @@ const Dashboard = () => {
         console.log(err);
       }
     },
+    onError: async (context) => {
+      if (context?.previousProducts) {
+        queryClient.setQueryData("getProduct", context.previousProducts);
+      }
+      setResultMessage({
+        type: "error",
+        text: "Failed Add Data",
+        visible: true,
+      });
+    },
+    onSuccess: async () => {
+      setResultMessage({
+        type: "success",
+        text: "Success Add Data",
+        visible: true,
+      });
+    },
+  });
+
+  const onCreate = (create) => {
+    addProduct.mutate(create);
+  };
+
+  const deleteProduct = async (id) => {
+    try {
+      const res = await axios.delete(`${SERVER_API}/delete/${id}`);
+      return res.data.data;
+    } catch (err) {
+      throw new Error("Error");
+    }
+  };
+
+  const deleteMutation = useMutation(deleteProduct, {
+    onMutate: async (newData) => {
+      await queryClient.cancelQueries("getData");
+      const targetId = newData.id;
+      const previousData = queryClient.getQueryData("getData");
+      if (previousData) {
+        const finalData = previousData.filter((x) => x.id !== targetId);
+        queryClient.setQueryData("getData", finalData);
+      }
+      return { previousData };
+    },
+    onSettled: async (result, err) => {
+      if (result) {
+        await queryClient.invalidateQueries("getData");
+      }
+      if (err) {
+        console.log(err);
+      }
+    },
     onError: async () => {},
     onSuccess: async () => {},
   });
 
-  const onSubmit = (formInput) => {
-    mutation.mutate(formInput);
+  const onDelete = (deleteData) => {
+    deleteMutation.mutate(deleteData);
+    console.log("testtttttttt", deleteData);
   };
 
   return (
@@ -103,6 +160,19 @@ const Dashboard = () => {
                   <div className="mt-5 md:mt-0 md:col-span-2">
                     <div className="shadow sm:rounded-md">
                       <div className="px-4 py-5 bg-white sm:p-6">
+                        {resultMessage.visible &&
+                          resultMessage.type === "error" && (
+                            <div className="font-mono .. text-white bg-red-500 hover:bg-red-700 ...">
+                              <p className="px-4">{resultMessage.text}</p>
+                            </div>
+                          )}
+                        {resultMessage.visible &&
+                          resultMessage.text &&
+                          resultMessage.type === "success" && (
+                            <div className="font-mono .. text-white bg-green-500 hover:bg-green-700 ... p-2 rounded-full mb-4">
+                              <p className="px-4">{resultMessage.text}</p>
+                            </div>
+                          )}
                         <div className="grid grid-cols-6 gap-6">
                           <TextInput
                             type="text"
@@ -125,7 +195,7 @@ const Dashboard = () => {
                       </div>
                       <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                         <button
-                          onClick={handleSubmit(onSubmit)}
+                          onClick={handleSubmit(onCreate)}
                           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                           Save
@@ -146,7 +216,14 @@ const Dashboard = () => {
                   <div className="mt-5 md:mt-0 md:col-span-2">
                     {data &&
                       Boolean(data?.length) &&
-                      data.map((item) => <Table key={item._id} {...item} />)}
+                      data.map((item) => (
+                        <Table
+                          key={item.id}
+                          {...item}
+                          handleSubmit={handleSubmit}
+                          onDelete={onDelete}
+                        />
+                      ))}
                   </div>
                 </div>
               </div>

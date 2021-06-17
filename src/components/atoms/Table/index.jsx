@@ -1,7 +1,15 @@
 import React from "react";
 import "../../../assets/main.css";
+import { IcTrash, IcPencil } from "../../../assets";
 
-const Table = ({ name, price, description }) => {
+const Table = ({
+  name,
+  price,
+  description,
+  handleSubmit,
+  onUpdate,
+  onDelete,
+}) => {
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -66,10 +74,19 @@ const Table = ({ name, price, description }) => {
                       {description ? description : "-"}
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-sm font-medium">
-                    <p className="text-indigo-600 hover:text-indigo-900">
-                      Edit
-                    </p>
+                  <td className="px-6 py-4 text-sm font-medium flex flex-row">
+                    <button
+                      className="border-none "
+                      onClick={handleSubmit(onUpdate)}
+                    >
+                      <IcPencil />
+                    </button>
+                    <button className="border-none">
+                      <IcTrash
+                        className="ml-2"
+                        onClick={handleSubmit(onDelete)}
+                      />
+                    </button>
                   </td>
                 </tr>
               </tbody>
